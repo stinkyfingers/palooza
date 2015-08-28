@@ -1,0 +1,62 @@
+<div class="container">
+
+  <div>
+    <acme-navbar creationDate="main.creationDate" />
+  </div>
+
+  <div class="row">
+    <div class="large-12 large-text-center columns">
+      <div class="panel">
+        <h1>{{challenge.name}}</h1>
+        <p ng-repeat="day in challenge.days">
+          {{day.name}} 
+          <button ng-click="editDay(day)">Edit</button>
+        </p>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div> 
+    <button ng-click="editDay()">Add Day</button>
+    <div class="row">
+      <div class="large-12 columns">
+        <label>Name
+          <input type="text" ng-model="challenge.name">
+        </label>
+      </div>
+    </div>
+
+    <div class="row" ng-if="day">
+      <div class="large-6 columns">
+        <label>Day
+          <select ng-model="day.name" ng-options="d for d in daysofweek">
+            <option value=''>--Select--</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="large-6 columns">
+        <label>Date
+          <input type="date" ng-model="day.date">
+        </label>
+      </div>
+    </div>
+
+    <div class="row" ng-if="day">
+      <div class="large-6 columns">
+        <label>Restaurant Name
+          <input type="text" ng-model="restaurant.name">
+        </label>
+      </div>
+
+      <div class="large-6 columns">
+        <label>Restaurant Address
+          <input type="text" ng-model="restaurant.address">
+        </label>
+      </div>
+    </div>
+
+
+  </div>
