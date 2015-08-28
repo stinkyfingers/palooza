@@ -15,7 +15,7 @@ class AdminController {
       if (day){
         $scope.day = day;        
       }
-    }
+    };
 
   }
 
