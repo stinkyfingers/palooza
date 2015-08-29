@@ -4,7 +4,7 @@
     <acme-navbar creationDate="main.creationDate" />
   </div>
 
-  <div class="row">
+  <div class="row" ng-if="challenge.name || challenge.days">
     <div class="large-12 large-text-center columns">
       <div class="panel">
         <h1>{{challenge.name}}</h1>
@@ -47,16 +47,22 @@
     <div class="row" ng-if="day">
       <div class="large-6 columns">
         <label>Restaurant Name
-          <input type="text" ng-model="restaurant.name">
+          <input type="text" ng-model="day.restaurant.name">
         </label>
       </div>
 
       <div class="large-6 columns">
         <label>Restaurant Address
-          <input type="text" ng-model="restaurant.address">
+          <input type="text" ng-model="day.restaurant.address">
         </label>
       </div>
     </div>
+
+    <div>
+      <button ng-click="save()" class="button success">Save</button>
+      <button ng-click="delete()" class="button alert">Delete</button>
+    </dov>
+
 
 
   </div>

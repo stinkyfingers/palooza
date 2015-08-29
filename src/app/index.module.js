@@ -8,6 +8,7 @@ import MainController from './main/main.controller';
 import AdminController from './admin/admin.controller';
 import GithubContributorService from '../app/components/githubContributor/githubContributor.service';
 import WebDevTecService from '../app/components/webDevTec/webDevTec.service';
+import GlobalService from '../app/services/global.service';
 import AdminService from '../app/services/admin.service';
 import NavbarDirective from '../app/components/navbar/navbar.directive';
 import MalarkeyDirective from '../app/components/malarkey/malarkey.directive';
@@ -24,6 +25,7 @@ angular.module('palooza', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'n
   .service('githubContributor', GithubContributorService)
   .service('AdminService', AdminService)
   .service('webDevTec', WebDevTecService)
+  .service('GlobalService', GlobalService)
   .controller('MainController', MainController)
   .controller('AdminController', AdminController)
   .directive('acmeNavbar', () => new NavbarDirective())
