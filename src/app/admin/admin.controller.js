@@ -16,6 +16,9 @@ class AdminController {
         day.date = new Date(day.date);
         $scope.day = day;        
       }else{
+        if ($scope.challenge.days === undefined || $scope.challenge.days === null){
+          $scope.challenge.days = [];
+        }
         $scope.challenge.days.push($scope.day);
       }
     };
