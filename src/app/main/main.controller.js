@@ -1,34 +1,47 @@
 class MainController {
-  constructor ($timeout, webDevTec, toastr) {
+  constructor ($scope, MainService, $rootScope) {
     'ngInject';
 
-    this.awesomeThings = [];
-    this.classAnimation = '';
-    this.creationDate = 1440647212007;
-    this.toastr = toastr;
 
-    this.activate($timeout, webDevTec);
-  }
-
-  activate($timeout, webDevTec) {
-    this.getWebDevTec(webDevTec);
-    $timeout(() => {
-      this.classAnimation = 'rubberBand';
-    }, 4000);
-  }
-
-  getWebDevTec(webDevTec) {
-    this.awesomeThings = webDevTec.getTec();
-
-    angular.forEach(this.awesomeThings, (awesomeThing) => {
-      awesomeThing.rank = Math.random();
+    MainService.getChallenges().then((resp) =>{
+      $scope.challenges = resp.data;
+    }, (err) =>{
+      $rootScope.$broadcast('error', err);
     });
+
+    $scope.showChallenge = (c) =>{
+      $scope.challenge = c;
+    };
+
+    //details
+    $scope.details = (day) =>{
+      $scope.day = day;
+    };
+
+    $scope.closeDetails = () =>{
+      $scope.detailAlert = null;
+    };
+
+    //signup
+    $scope.signup = (person) =>{
+      $scope.day = null;
+      $scope.person = {};
+      if (person){
+        $scope.person = person;
+      }
+    };
+
+    $scope.cancelSignup = () =>{
+      $scope.person = null;
+    };
+
+    $scope.savePerson = (person) =>{
+      // console.log(person);
+    };
+
+    
   }
 
-  showToastr() {
-    this.toastr.info('Fork <a href="https://github.com/Swiip/generator-gulp-angular" target="_blank"><b>generator-gulp-angular</b></a>');
-    this.classAnimation = '';
-  }
 }
 
 export default MainController;

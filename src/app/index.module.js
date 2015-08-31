@@ -10,6 +10,7 @@ import GithubContributorService from '../app/components/githubContributor/github
 import WebDevTecService from '../app/components/webDevTec/webDevTec.service';
 import GlobalService from '../app/services/global.service';
 import AdminService from '../app/services/admin.service';
+import MainService from '../app/services/main.service';
 import NavbarDirective from '../app/components/navbar/navbar.directive';
 import MalarkeyDirective from '../app/components/malarkey/malarkey.directive';
 
@@ -24,6 +25,7 @@ angular.module('palooza', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'n
   .run(runBlock)
   .service('githubContributor', GithubContributorService)
   .service('AdminService', AdminService)
+  .service('MainService', MainService)
   .service('webDevTec', WebDevTecService)
   .service('GlobalService', GlobalService)
   .controller('MainController', MainController)
