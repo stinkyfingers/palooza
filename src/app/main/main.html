@@ -17,7 +17,7 @@
   <div class="row" ng-if="challenge">
     <div class="large-6 columns">
       <h2>{{challenge.name}}</h2>
-      <button ng-click="signup(challenge)" class="button success">Sign Up</button>
+      <button ng-click="signup()" class="button success">Sign Up</button>
       <table>
         <thead>
           <tr>
@@ -61,7 +61,7 @@
       <h4>Days:</h4>
         <div class="switch" ng-repeat="(i, day) in challenge.days">
           {{day.name}} - {{day.restaurant.name}}
-          <input id="{{i}}" type="checkbox" checked name="testGroup" ng-model="person.day">
+          <input id="{{i}}" type="checkbox" checked name="testGroup" ng-model="person.days[day.name]">
           <label for="{{i}}"></label>
 
         </div> 

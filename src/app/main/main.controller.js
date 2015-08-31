@@ -19,7 +19,7 @@ class MainController {
     };
 
     $scope.closeDetails = () =>{
-      $scope.detailAlert = null;
+      $scope.day = null;
     };
 
     //signup
@@ -36,7 +36,24 @@ class MainController {
     };
 
     $scope.savePerson = (person) =>{
-      // console.log(person);
+      for (let j = 0; j < $scope.challenge.days.length; j++){
+        if ($scope.challenge.days[j].people === undefined || $scope.challenge.days.people === null){
+          $scope.challenge.days[j].people = [];
+        }
+
+        for (let key in person.days){
+          if ($scope.challenge.days[j].name === key){
+            let tempPerson = {firstName: person.firstName, lastName: person.lastName};
+            $scope.challenge.days[j].people.push(tempPerson);
+          }
+        }
+      }
+      //update challenge
+      MainService.updateChallenge($scope.challenge).then((resp) =>{
+        $scope.challenge = resp.data;
+      }, (err) =>{
+        $rootScope.$broadcast('error', err);
+      });
     };
 
     
