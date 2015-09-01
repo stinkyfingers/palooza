@@ -20,7 +20,7 @@
     // listen (start app with node server.js) ======================================
     var port = process.env.PORT;
     if (port === '' || port === undefined){
-        port = 8080;
+        port = 8081;
     }
     app.listen(port);
     console.log("App listening on port " + port);
