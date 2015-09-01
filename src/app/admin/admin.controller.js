@@ -4,8 +4,8 @@ class AdminController {
 
     $scope.daysofweek = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
 
-    AdminService.getChallenge('55da290d8bd2ff45063cf8b7').then((resp) =>{
-      $scope.challenge = resp.data;
+    AdminService.getChallenges().then((resp) =>{
+      $scope.challenges = resp.data;
     }, (err) =>{
       $rootScope.$broadcast('err', err);
     });
@@ -23,18 +23,27 @@ class AdminController {
       }
     };
 
+    $scope.editChallenge = (challenge) =>{
+      $scope.challenge = {};
+      if (challenge){
+        $scope.challenge = challenge;
+      }
+    };
+
+    $scope.cancel = () =>{
+      $scope.challenge = null;
+    };
+
     //CRUD
     var updateChallenge = (chal) =>{
-      AdminService.updateChallenge(chal).then((resp)=>{
-        $scope.challenge = resp.data;
+      AdminService.updateChallenge(chal).then(()=>{
       },(err) =>{
       $rootScope.$broadcast('err', err);
       });
     };
 
     var createChallenge = (chal) =>{
-      AdminService.createChallenge(chal).then((resp)=>{
-        $scope.challenge = resp.data;
+      AdminService.createChallenge(chal).then(()=>{
       },(err) =>{
       $rootScope.$broadcast('err', err);
       });
@@ -43,10 +52,26 @@ class AdminController {
     $scope.save = () =>{
       if ($scope.challenge._id !== undefined){
         updateChallenge($scope.challenge);
+        $scope.challenge = null;
         return;
       }
       createChallenge($scope.challenge);
+      $scope.challenges.push($scope.challenge);
+      $scope.challenge = null;
       return;
+    };
+
+    $scope.remove = () =>{
+      AdminService.removeChallenge($scope.challenge).then((resp)=>{
+        for (let i = 0; i < $scope.challenges.length; i++){
+          if (resp.data._id === $scope.challenges[i]._id){
+            $scope.challenges.splice(i, 1);
+          }
+        }
+        $scope.challenge = null;
+      }, (err) =>{
+        $rootScope.$broadcast('error', err);
+      });
     };
 
 

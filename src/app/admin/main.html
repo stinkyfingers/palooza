@@ -1,16 +1,32 @@
 <div class="container">
 
   <div>
-    <acme-navbar creationDate="main.creationDate" />
+    <acme-navbar />
   </div>
+
+  <div class="row" ng-if="!challenge">
+    <div class="large-12 large-text-center columns">
+      <div class="panel">
+        <h2>Food Challenges</h2>
+        <button ng-click="editChallenge()">New</button>
+        <p ng-repeat="c in challenges">
+          <a ng-click="editChallenge(c)">{{c.name}}</a>
+        </p>
+
+
+      </div>
+    </div>
+  </div>
+
 
   <div class="row" ng-if="challenge.name || challenge.days">
     <div class="large-12 large-text-center columns">
       <div class="panel">
         <h1>{{challenge.name}}</h1>
-        <p ng-repeat="day in challenge.days">
+        <p ng-repeat="day in challenge.days | orderBy:'date'">
           {{day.name}} 
-          <button ng-click="editDay(day)">Edit</button>
+          <button ng-if="day.name" ng-click="editDay(day)">Edit</button>
+          {{day.date | date}}
         </p>
 
       </div>
@@ -18,7 +34,7 @@
   </div>
 
 
-  <div> 
+  <div ng-if="challenge"> 
     <button ng-click="editDay()">Add Day</button>
     <div class="row">
       <div class="large-12 columns">
@@ -60,7 +76,8 @@
 
     <div>
       <button ng-click="save()" class="button success">Save</button>
-      <button ng-click="delete()" class="button alert">Delete</button>
+      <button ng-click="remove()" class="button alert">Delete</button>
+      <button ng-click="cancel()" class="button secondary">Cancel</button>
     </dov>
 
 

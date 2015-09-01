@@ -13,6 +13,13 @@ class AdminService {
     });
   }
 
+  getChallenges(){
+    return this.$http({
+      method: 'get',
+      url: this.api + '/challenges'
+    });
+  }
+
   createChallenge(challenge){
     return this.$http({
       method: 'post',
@@ -31,8 +38,8 @@ class AdminService {
 
   removeChallenge(challenge){
     return this.$http({
-      method: 'delete',
-      url: this.api + '/challenge',
+      method: 'post',
+      url: this.api + '/challenge/delete',
       data: challenge
     });
   }

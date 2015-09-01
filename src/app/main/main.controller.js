@@ -53,6 +53,8 @@ class MainController {
         $scope.challenge = resp.data;
       }, (err) =>{
         $rootScope.$broadcast('error', err);
+      }).finally(()=>{
+        $scope.person = null;
       });
     };
 
