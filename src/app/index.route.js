@@ -11,6 +11,11 @@ function routerConfig ($routeProvider) {
       controller: 'AdminController',
       controllerAs: 'admin'
     })
+    .when('/login', {
+      templateUrl: 'app/admin/login.html',
+      controller: 'AdminController',
+      controllerAs: 'admin'
+    })
     .otherwise({
       redirectTo: '/'
     });

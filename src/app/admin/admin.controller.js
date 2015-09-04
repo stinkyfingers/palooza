@@ -1,8 +1,10 @@
 class AdminController {
-  constructor ($scope, $rootScope, AdminService) {
+  constructor ($scope, $rootScope, AdminService, $location) {
     'ngInject';
 
     $scope.daysofweek = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+    $scope.new = false;
+    $scope.user = {};
 
     AdminService.getChallenges().then((resp) =>{
       $scope.challenges = resp.data;
@@ -36,28 +38,29 @@ class AdminController {
 
     //CRUD
     var updateChallenge = (chal) =>{
-      AdminService.updateChallenge(chal).then(()=>{
+      AdminService.updateChallenge(chal).then((resp)=>{
+        $scope.challenges.push(resp.data);
+        $scope.challenge = false;
       },(err) =>{
-      $rootScope.$broadcast('err', err);
+        $rootScope.$broadcast('err', err);
       });
     };
 
     var createChallenge = (chal) =>{
-      AdminService.createChallenge(chal).then(()=>{
+      AdminService.createChallenge(chal).then((resp)=>{
+        $scope.challenges.push(resp.data);
+        $scope.challenge = false;
       },(err) =>{
-      $rootScope.$broadcast('err', err);
+        $rootScope.$broadcast('err', err);
       });
     };
 
     $scope.save = () =>{
       if ($scope.challenge._id !== undefined){
         updateChallenge($scope.challenge);
-        $scope.challenge = null;
         return;
       }
       createChallenge($scope.challenge);
-      $scope.challenges.push($scope.challenge);
-      $scope.challenge = null;
       return;
     };
 
@@ -68,10 +71,39 @@ class AdminController {
             $scope.challenges.splice(i, 1);
           }
         }
-        $scope.challenge = null;
+        $scope.challenge = false;
       }, (err) =>{
-        $rootScope.$broadcast('error', err);
+        $rootScope.$broadcast('err', err);
       });
+    };
+
+    //login
+    $scope.login = () =>{
+      AdminService.authenticate($scope.user).then((resp) =>{
+        $scope.token = resp.data.token;
+        AdminService.setToken(resp.data.token);
+        AdminService.setUser(resp.data.user);
+        $location.url('/');
+      }, (err) =>{
+        $rootScope.$broadcast('err', err);
+      });
+    };
+
+    $scope.logout = () =>{
+      AdminService.logout();
+    };
+
+    $scope.edit = () =>{
+      $scope.new = true;
+    };
+    $scope.li = () =>{
+      $scope.new = false;
+    };
+    $scope.checkPass = (create, passconfirm) => {
+      create.$setValidity('passconfirm', true);
+      if ($scope.user.password !== passconfirm){
+        create.$setValidity('passconfirm', false);
+      }
     };
 
 

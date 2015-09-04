@@ -18,11 +18,16 @@ class NavbarDirective {
 }
 
 class NavbarController {
-  constructor (moment) {
+  constructor (moment, AdminService, $scope) {
     'ngInject';
 
     // "this.creation" is avaible by directive option "bindToController: true"
     this.relativeDate = moment(this.creationDate).fromNow();
+    $scope.user = AdminService.getUser();
+    $scope.logout = function(){
+      AdminService.logout();
+      $scope.user = false;
+    };
   }
 }
 

@@ -1,8 +1,9 @@
 class AdminService {
-  constructor ($http, GlobalService) {
+  constructor ($http, GlobalService, localStorageService) {
     'ngInject';
     this.$http = $http;
     this.api = GlobalService.getApi();
+    this.localStorageService = localStorageService;
   
   }
 
@@ -24,7 +25,10 @@ class AdminService {
     return this.$http({
       method: 'post',
       url: this.api + '/challenge',
-      data: challenge
+      data: challenge,
+      headers:{
+        'Authorization':'Bearer: ' + this.getToken()
+      }
     });
   }
 
@@ -32,7 +36,10 @@ class AdminService {
     return this.$http({
       method: 'put',
       url: this.api + '/challenge',
-      data: challenge
+      data: challenge,
+      headers:{
+        'Authorization':'Bearer: ' + this.getToken()
+      }
     });
   }
 
@@ -40,10 +47,41 @@ class AdminService {
     return this.$http({
       method: 'post',
       url: this.api + '/challenge/delete',
-      data: challenge
+      data: challenge,
+      headers:{
+        'Authorization':'Bearer: ' + this.getToken()
+      }
     });
   }
 
+  authenticate(user){
+    return this.$http({
+      method: 'post',
+      url: this.api + '/userauth',
+      data: user
+    });
+  }
+
+  logout(){
+    this.localStorageService.remove('token');
+    this.localStorageService.remove('user');
+  }
+
+  setToken(token){
+    this.localStorageService.set('token', token);
+  }
+
+  getToken(){
+    return this.localStorageService.get('token');
+  }
+
+  setUser(user){
+    this.localStorageService.set('user', user);
+  }
+
+  getUser(){
+    return this.localStorageService.get('user');
+  }
 
     
 }
