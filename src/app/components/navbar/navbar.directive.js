@@ -18,7 +18,7 @@ class NavbarDirective {
 }
 
 class NavbarController {
-  constructor (moment, AdminService, $scope) {
+  constructor (moment, AdminService, $scope, $location) {
     'ngInject';
 
     // "this.creation" is avaible by directive option "bindToController: true"
@@ -27,6 +27,7 @@ class NavbarController {
     $scope.logout = function(){
       AdminService.logout();
       $scope.user = false;
+      $location.url('/');
     };
   }
 }

@@ -6,6 +6,10 @@ class AdminController {
     $scope.new = false;
     $scope.user = {};
 
+    if (AdminService.getUser() === null || !AdminService.getUser().admin){
+      $location.url("/login");
+    }
+
     AdminService.getChallenges().then((resp) =>{
       $scope.challenges = resp.data;
     }, (err) =>{
@@ -38,8 +42,7 @@ class AdminController {
 
     //CRUD
     var updateChallenge = (chal) =>{
-      AdminService.updateChallenge(chal).then((resp)=>{
-        $scope.challenges.push(resp.data);
+      AdminService.updateChallenge(chal).then(()=>{
         $scope.challenge = false;
       },(err) =>{
         $rootScope.$broadcast('err', err);
@@ -91,6 +94,7 @@ class AdminController {
 
     $scope.logout = () =>{
       AdminService.logout();
+      $location.url('/');
     };
 
     $scope.edit = () =>{

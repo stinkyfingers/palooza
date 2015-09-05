@@ -1,5 +1,5 @@
 class MainController {
-  constructor ($scope, MainService, $rootScope) {
+  constructor ($scope, MainService, $rootScope, AdminService, $location) {
     'ngInject';
 
 
@@ -8,6 +8,9 @@ class MainController {
     }, (err) =>{
       $rootScope.$broadcast('error', err);
     });
+
+    $scope.person = AdminService.getUser();
+
 
     $scope.showChallenge = (c) =>{
       $scope.challenge = c;
@@ -23,28 +26,30 @@ class MainController {
     };
 
     //signup
-    $scope.signup = (person) =>{
-      $scope.day = null;
-      $scope.person = {};
-      if (person){
-        $scope.person = person;
+    $scope.signup = () =>{
+      if (AdminService.getUser() === null || AdminService.getUser() === undefined){
+        $location.url('/login');
       }
+      $scope.day = null;
+      $scope.person = AdminService.getUser();
     };
 
     $scope.cancelSignup = () =>{
       $scope.person = null;
     };
 
-    $scope.savePerson = (person) =>{
-      for (let j = 0; j < $scope.challenge.days.length; j++){
-        if ($scope.challenge.days[j].people === undefined || $scope.challenge.days.people === null){
-          $scope.challenge.days[j].people = [];
-        }
-
-        for (let key in person.days){
-          if ($scope.challenge.days[j].name === key){
-            let tempPerson = {firstName: person.firstName, lastName: person.lastName};
-            $scope.challenge.days[j].people.push(tempPerson);
+    $scope.save = () =>{
+      for (let i = 0; i < $scope.challenge.days.length; i++){
+        //add person to this day
+        if($scope.challenge.days[i].personAdd){
+          if ($scope.personOnDay($scope.challenge.days[i], $scope.person) === -1){
+            $scope.challenge.days[i].people.push($scope.person);
+          }
+        }else{
+          //remove person from day
+          let index = $scope.personOnDay($scope.challenge.days[i], $scope.person);
+          if (index !== -1){
+            $scope.challenge.days[i].people.splice(index, 1);
           }
         }
       }
@@ -56,8 +61,18 @@ class MainController {
       }).finally(()=>{
         $scope.person = null;
       });
+
     };
 
+    //object-specific indexOf function
+    $scope.personOnDay = (day, person) =>{
+      for (let i = 0; i < day.people.length; i++){
+        if (person._id === day.people[i]._id){
+          return i;
+        }
+      }
+      return -1;
+    };
     
   }
 
