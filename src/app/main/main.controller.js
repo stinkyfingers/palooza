@@ -14,6 +14,7 @@ class MainController {
 
     $scope.showChallenge = (c) =>{
       $scope.challenge = c;
+      $scope.person = null;
     };
 
     //details
@@ -32,6 +33,13 @@ class MainController {
       }
       $scope.day = null;
       $scope.person = AdminService.getUser();
+
+      //set personAdd temp var
+      for (let i = 0; i < $scope.challenge.days.length; i++){
+        if ($scope.personOnDay($scope.challenge.days[i], $scope.person) !== -1){
+          $scope.challenge.days[i].personAdd = true;
+        }
+      }
     };
 
     $scope.cancelSignup = () =>{
