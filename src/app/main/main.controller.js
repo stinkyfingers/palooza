@@ -30,6 +30,7 @@ class MainController {
     $scope.signup = () =>{
       if (AdminService.getUser() === null || AdminService.getUser() === undefined){
         $location.url('/login');
+        return;
       }
       $scope.day = null;
       $scope.person = AdminService.getUser();

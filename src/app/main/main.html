@@ -44,7 +44,7 @@
         <ul ng-if="day.people.length">
           <lh>Attendees:</lh>
           <li ng-repeat="person in day.people">
-            {{person.firstName}} {{person.lastName}}
+            {{person.firstName}} {{person.lastName}} <span ng-if="person.color">Favorite Color: {{person.color}}</span>
           </li>
         </ul>
       </alert>
