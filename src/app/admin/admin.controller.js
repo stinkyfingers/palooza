@@ -81,7 +81,12 @@ class AdminController {
     };
 
     //login
-    $scope.login = () =>{
+    $scope.user = AdminService.getUser();
+    if($scope.user !== null && $scope.user !== undefined){
+      $scope.new = true;
+    }
+    $scope.login = (user) =>{
+      $scope.user = user;
       AdminService.authenticate($scope.user).then((resp) =>{
         $scope.token = resp.data.token;
         AdminService.setToken(resp.data.token);
@@ -103,11 +108,21 @@ class AdminController {
     $scope.li = () =>{
       $scope.new = false;
     };
-    $scope.checkPass = (create, passconfirm) => {
+    $scope.checkPass = (user, create, passconfirm) => {
+      $scope.user = user;
       create.$setValidity('passconfirm', true);
       if ($scope.user.password !== passconfirm){
         create.$setValidity('passconfirm', false);
       }
+    };
+
+    $scope.createUser = () =>{
+      AdminService.createUser($scope.user).then(() => {
+        $scope.user = null;
+        $scope.new = false;
+      }, (err) => {
+        $rootScope.$broadcast('error', err);
+      });
     };
 
 

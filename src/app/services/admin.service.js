@@ -62,6 +62,14 @@ class AdminService {
     });
   }
 
+  createUser(user){
+    return this.$http({
+      method: 'post',
+      url: this.api + '/user',
+      data: user
+    });
+  }
+
   logout(){
     this.localStorageService.remove('token');
     this.localStorageService.remove('user');

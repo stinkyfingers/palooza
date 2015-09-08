@@ -6,6 +6,7 @@
       <li class="active"><a ng-href="/">Home</a></li>
       <li ng-if="!user"><a ng-href="/login">Log In</a></li>
       <li ng-if="user"><a ng-click="logout()">Log Out</a></li>
+      <li ng-if="user"><a ng-href="/login">Edit Profile</a></li>
       <li ng-if="user.admin"><a ng-href="/admin">Admin</a></li>
     </ul>
   </section>

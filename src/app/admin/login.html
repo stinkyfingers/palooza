@@ -5,32 +5,33 @@
 <div class="row">
     <div class="large-12 large-text-center columns">
 	    <div class="panel" ng-if="new === false">
-	      	<label for="username">Username:
+	      	<label for="username">Username: 
 	      		<input type="text" ng-model="user.username">
 	      	</label>
 	      	<label for="password">Password:
 	      		<input type="password" ng-model="user.password">
 	      	</label>
-	      	<button class="btn success" ng-click="login()">Log In</button>
+	      	<button class="btn success" ng-click="login(user)">Log In</button>
 	    </div>
 
 	    <div class="panel" ng-if="new === true">
-	    	<h3>New User</h3>
+	    	<h3 ng-if="!user._id">New User</h3>
+	    	<h3 ng-if="user._id">Edit User</h3>
 	    	<form name="create" novalidate>
 		      	<label for="username">Username:
 		      		<input type="text" ng-model="user.username" required>
 		      	</label>
 		      	<label for="password">Password:
-		      		<input type="password" ng-model="user.password" required>
+		      		<input type="password" ng-model="user.password" ng-required="!user._id">
 		      	</label>
 		      	<label for="passconfimr">Confirm Password:
-		      		<input type="password" ng-model="passconfirm" ng-blur="checkPass(create, passconfirm)" required>
+		      		<input type="password" ng-model="passconfirm" ng-required="!user._id" ng-blur="checkPass(user, create, passconfirm)">
 		      		<p ng-show="create.$invalid" class="help-block">
 		      				Passwords do not match
 		      		</p>
 		      	</label>
 		      	<label for="firstName">First Name:
-		      		<input type="text" ng-model="user.firstName">
+		      		<input type="text" ng-model="user.firstName" required>
 		      	</label>
 		      	<label for="lastName">Last Name:
 		      		<input type="text" ng-model="user.lastName">
@@ -38,13 +39,16 @@
 		      	<label for="color">Favorite Color:
 		      		<input type="text" ng-model="user.color">
 		      	</label>
-		      	<button class="btn success" ng-click="login()" ng-disabled="create.$invalid">Create</button>
+		      	<button class="btn success" ng-click="createUser()" ng-disabled="create.$invalid">Create</button>
 		      </form>
 	    </div>
 
 	    <div class="panel">
 			<button ng-if="new === true" ng-click="li()">Log In Existing User</button>
-			<button ng-if="new === false" ng-click="edit()">Create a New User</button>
+			<button ng-if="new === false" ng-click="edit()">
+				<span ng-if="!user._id">Create a New User</spab>
+				<span ng-if="user._id">Save Changes</spab>
+			</button>
 	    </div>
 
   	</div>
