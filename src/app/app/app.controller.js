@@ -1,11 +1,14 @@
 class AppController {
   constructor ($scope, $rootScope) {
     'ngInject';
+    $scope.err = null;
 
-    $rootScope.$watch('err',function(n,o){
-    	if (n !== o){
-			// alert(n);
-    	}
+    $rootScope.$on('err',function(event, args){
+		let err = {
+			code: args.data.code,
+			message: args.data.message
+		};
+		$scope.err = err;
 	});
 
 	}

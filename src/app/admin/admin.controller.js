@@ -121,10 +121,9 @@ class AdminController {
         $scope.user = null;
         $scope.new = false;
       }, (err) => {
-        $rootScope.$broadcast('error', err);
+        $rootScope.$broadcast('err', err);
       });
     };
-
 
 
   }

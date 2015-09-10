@@ -26,6 +26,12 @@
     <![endif]-->
 
     <div ng-view></div>
+    
+    <div class="err" ng-if="err">ERROR: 
+        <span ng-if="err.code">Code: {{err.code}}</span>
+        <span ng-if="err.message">Message: {{err.message}}</span>
+    </div>
+
 
     <!-- build:js(src) scripts/vendor.js -->
     <!-- bower:js -->

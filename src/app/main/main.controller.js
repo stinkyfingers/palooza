@@ -6,7 +6,7 @@ class MainController {
     MainService.getChallenges().then((resp) =>{
       $scope.challenges = resp.data;
     }, (err) =>{
-      $rootScope.$broadcast('error', err);
+      $rootScope.$broadcast('err', err);
     });
 
     $scope.person = AdminService.getUser();
@@ -66,7 +66,7 @@ class MainController {
       MainService.updateChallenge($scope.challenge).then((resp) =>{
         $scope.challenge = resp.data;
       }, (err) =>{
-        $rootScope.$broadcast('error', err);
+        $rootScope.$broadcast('err', err);
       }).finally(()=>{
         $scope.person = null;
       });
