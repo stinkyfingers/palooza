@@ -70,6 +70,14 @@ class AdminService {
     });
   }
 
+  updateUser(user){
+    return this.$http({
+      method: 'put',
+      url: this.api + '/user',
+      data: user
+    });
+  }
+
   logout(){
     this.localStorageService.remove('token');
     this.localStorageService.remove('user');

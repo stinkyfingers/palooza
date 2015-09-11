@@ -117,10 +117,21 @@ class AdminController {
     };
 
     $scope.createUser = () =>{
-      AdminService.createUser($scope.user).then(() => {
-        $scope.user = null;
+      AdminService.createUser($scope.user).then((resp) => {
+        $scope.user = resp.data;
+        AdminService.setUser($scope.user);
         $scope.new = false;
       }, (err) => {
+        $rootScope.$broadcast('err', err);
+      });
+    };
+
+    $scope.updateUser = () =>{
+      AdminService.updateUser($scope.user).then((resp)=>{
+        $scope.user = resp.data;
+        AdminService.setUser($scope.user);
+        $location.url('/');
+      }, (err) =>{
         $rootScope.$broadcast('err', err);
       });
     };
