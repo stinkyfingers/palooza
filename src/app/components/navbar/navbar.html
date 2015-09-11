@@ -3,11 +3,11 @@
 
   <section class="top-bar-section">
     <ul class="right">
-      <li class="active"><a ng-href="/">Home</a></li>
-      <li ng-if="!user"><a ng-href="/login">Log In</a></li>
+      <li ng-class="{active: path === '/'}"><a ng-href="/">Home</a></li>
+      <li ng-class="{active: path === 'login'}" ng-if="!user"><a ng-href="/login">Log In</a></li>
       <li ng-if="user"><a ng-click="logout()">Log Out</a></li>
-      <li ng-if="user"><a ng-href="/login">Edit Profile</a></li>
-      <li ng-if="user.admin"><a ng-href="/admin">Admin</a></li>
+      <li ng-class="{active: path === '/login'}" ng-if="user"><a ng-href="/login">Edit Profile</a></li>
+      <li ng-class="{active: path === '/admin'}" ng-if="user.admin"><a ng-href="/admin">Admin</a></li>
     </ul>
   </section>
 </nav>

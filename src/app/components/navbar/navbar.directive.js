@@ -29,6 +29,8 @@ class NavbarController {
       $scope.user = false;
       $location.url('/');
     };
+
+    $scope.path = $location.path();
   }
 }
 
