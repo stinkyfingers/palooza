@@ -23,18 +23,20 @@
     <div class="large-12 large-text-center columns">
       <div class="panel">
         <h1>{{challenge.name}}</h1>
-        <p ng-repeat="day in challenge.days | orderBy:'date'">
-          {{day.name}} 
-          <button ng-if="day.name" ng-click="editDay(day)">Edit</button>
-          {{day.date | date}}
-        </p>
+        <table class="large-12">
+          <tr ng-repeat="day in challenge.days | orderBy:'date'">
+            <td>{{day.name}}</td>
+            <td>{{day.date | date}}</td>
+            <td><button ng-if="day.name" ng-click="editDay(day)">Edit</button></td>
+          </tr>
+        </table>
 
       </div>
     </div>
   </div>
 
 
-  <div ng-if="challenge"> 
+  <div ng-if="challenge" class="row"> 
     <button ng-click="editDay()">Add Day</button>
     <div class="row">
       <div class="large-12 columns">
