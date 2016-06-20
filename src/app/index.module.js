@@ -14,6 +14,7 @@ import AdminService from '../app/services/admin.service';
 import MainService from '../app/services/main.service';
 import NavbarDirective from '../app/components/navbar/navbar.directive';
 import MalarkeyDirective from '../app/components/malarkey/malarkey.directive';
+import PotluckDirective from '../app/components/potluck/potluck.directive';
 
 angular.module('palooza', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngRoute', 'mm.foundation','LocalStorageModule'])
   .constant('malarkey', malarkey)
@@ -33,4 +34,5 @@ angular.module('palooza', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'n
   .controller('AdminController', AdminController)
   .controller('AppController', AppController)
   .directive('acmeNavbar', () => new NavbarDirective())
-  .directive('acmeMalarkey', () => new MalarkeyDirective(malarkey));
+  .directive('acmeMalarkey', () => new MalarkeyDirective(malarkey))
+  .directive('potluck', () => new PotluckDirective());

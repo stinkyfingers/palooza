@@ -1,0 +1,30 @@
+<h2>{{vm.potluck.name}}</h2>
+<h3>{{vm.potluck.date | date}}</h3>
+    <button ng-click="signup()" class="button success">Sign Up</button>
+      <table>
+        <thead>
+          <tr>
+            <th>Dish</th>
+            <th>Person</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="dish in vm.potluck.dishes">
+            <td>{{dish.dish}}</td>
+            <td>{{dish.user.firstName}} {{dish.user.lastName}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+
+    <div class="signup large-6 columns" ng-if="person">
+      <h3>Sign up for {{potluck.name}} below, {{person.firstName}} {{person.lastName}}.</h3>
+      <h4>Dish:</h4>
+
+          <input id="dish" type="text"  name="testGroup" ng-model="vm.dish">
+
+      <button class="button success" ng-click="save()">Save</button>
+      <button class="button secondary" ng-click="cancelSignup()">Cancel</button>
+    </div>

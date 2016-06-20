@@ -9,12 +9,24 @@ class MainController {
       $rootScope.$broadcast('err', err);
     });
 
+    MainService.getPotlucks().then((resp) => {
+      $scope.potlucks = resp.data;
+    }, (err) => {
+      $rootScope.$broadcast('err', err);
+    });
+
     $scope.person = AdminService.getUser();
 
+    $scope.showPotluck = (p) => {
+      $scope.potluck = p;
+      $scope.person = null;
+      $scope.challenge = null;
+    };
 
     $scope.showChallenge = (c) =>{
       $scope.challenge = c;
       $scope.person = null;
+      $scope.potluck = null;
     };
 
     //details

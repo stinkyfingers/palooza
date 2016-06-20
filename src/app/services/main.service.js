@@ -32,6 +32,25 @@ class MainService {
     });
   }
 
+  getPotlucks() {
+    return this.$http({
+      method: 'get',
+      url: this.api + '/potlucks'
+    });
+  }
+
+  updatePotluck(potluck){
+    return this.$http({
+      method: 'put',
+      url: this.api + '/potluck',
+      data: potluck,
+      headers:{
+        'Authorization':'Bearer: '+this.token
+      }
+    });
+  }
+
+
   
 
 

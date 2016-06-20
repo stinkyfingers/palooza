@@ -10,7 +10,17 @@
         <p ng-repeat="challenge in challenges">
           <a ng-click="showChallenge(challenge)">{{challenge.name}}</a>
         </p>
+        <h2>Potlucks</h2>
+        <p ng-repeat="potluck in potlucks">
+          <a ng-click="showPotluck(potluck)">{{potluck.name}}</a>
+        </p>
       </div>
+    </div>
+  </div>
+
+  <div class="row" ng-if="potluck">
+    <div class="large-6 columns">
+      <potluck pot="potluck"/>
     </div>
   </div>
 
